@@ -1,0 +1,39 @@
+<mat-card>
+    <mat-card-title>Novo modo de Pagamento</mat-card-title>
+    <form [formGroup]="modoPagamento">
+        <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <input matInput placeholder="Ex: Dinheiro" name="descricao" formControlName="descricao">
+            <mat-error
+                    *ngIf="modoPagamento.touched || modoPagamento.dirty && c.descricao.errors?.required">Preencha o
+                campo
+                Descricao
+            </mat-error>
+        </mat-form-field>
+
+<!--        <mat-form-field appearance="outline">-->
+
+<!--            <mat-label>Taxa</mat-label>-->
+<!--            <input matInput placeholder="Ex: 0.02" name="taxa" formControlName="taxa"  mask = "percent" suffix="%" separatorLimit = " 100 "  />-->
+<!--            <mat-error-->
+<!--                    *ngIf="modoPagamento.touched || modoPagamento.dirty && c.taxa.errors?.required">Preencha o campo-->
+<!--                Taxa-->
+<!--            </mat-error>-->
+<!--        </mat-form-field>-->
+
+        <mat-form-field appearance="outline">
+            <mat-label>Taxa desconto permitido</mat-label>
+            <input matInput placeholder="Ex: 0.02" name="porcentagemDesconto" formControlName="porcentagemDesconto" mask = "percent" suffix="%" separatorLimit = " 100 " >
+        </mat-form-field>
+<!--        <mat-checkbox class="example-margin" formControlName="troco">Troco</mat-checkbox>-->
+        <mat-checkbox class="example-margin" formControlName="aVista">A vista</mat-checkbox>
+    </form>
+
+    <button mat-raised-button [disabled]="!modoPagamento.valid" (click)="criarModoPgto()" color="primary">
+        Salvar
+    </button>
+
+    <button mat-raised-button (click)="cancelar()">
+        Cancelar
+    </button>
+</mat-card>

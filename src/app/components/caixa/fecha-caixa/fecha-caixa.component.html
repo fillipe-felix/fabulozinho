@@ -1,0 +1,91 @@
+<mat-card>
+    <mat-card-title>Fechamento Caixa</mat-card-title>
+    <form [formGroup]="caixa">
+        <mat-form-field appearance="outline">
+            <mat-label>Nome Usuario Caixa</mat-label>
+            <input matInput type="text" placeholder="Ex: Maria F." name="nome" formControlName="nome">
+        </mat-form-field>
+
+
+        <div style="display:flex ;flex-direction: row">
+            <mat-form-field appearance="outline">
+                <mat-label>Valor Inical</mat-label>
+                <input matInput prefix="R$ " mask="separator.2" thousandSeparator="." placeholder="Ex: R$ 10.0" name="valorInicial"
+                       formControlName="valorInicial"
+                       type="text" min="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Valor Total Caixa</mat-label>
+                <input matInput prefix="R$ " mask="separator.2" thousandSeparator="." placeholder="Ex: R$ 10.0" name="valorTotalCaixa"
+                       formControlName="valorTotalCaixa"
+                       type="text" min="0">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Data</mat-label>
+                <input  matInput prefix=" " placeholder="Ex: R$ 10.0" name="data"
+                       formControlName="data"
+                       type="datetime-local">
+            </mat-form-field>
+        </div>
+        <div style="display:flex ;flex-direction: row">
+            <mat-form-field appearance="outline">
+                <mat-label>Valor Total Avista Caixa</mat-label>
+                <input matInput prefix="R$ " mask="separator.2" thousandSeparator="." placeholder="Ex: R$ 10.0" name="valorTotalAvista"
+                       formControlName="valorTotalAvista"
+                       type="text" min="0">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Valor Total Fechamento Avista</mat-label>
+                <input disabled matInput prefix="R$ " mask="separator.2" thousandSeparator="." placeholder="Ex: R$ 10.0" name="valorFechamentoAvista"
+                       formControlName="valorFechamentoAvista"
+                       type="text" min="0" (keydown.Tab)= verificaDiferenca()>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Diferença Avista</mat-label>
+                <input matInput  placeholder="Ex: R$ 10.0" name="diferencaAvista"
+                       formControlName="diferencaAvista"
+                       type="text" >
+            </mat-form-field>
+        </div>
+        <div style="display:flex ;flex-direction: row">
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>Valor Total  Cartão</mat-label>
+                <input matInput prefix="R$ " mask="separator.2" thousandSeparator="." placeholder="Ex: R$ 10.0" name="valorTotalCartao"
+                       formControlName="valorTotalCartao"
+                       type="text" min="0">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Valor Total Fechamento Cartão</mat-label>
+                <input matInput prefix="R$ " mask="separator.2" thousandSeparator="." placeholder="Ex: R$ 10.0" name="valorTotalCartaoFechamento"
+                       formControlName="valorTotalCartaoFechamento"
+                       type="text" min="0" (keydown.Tab)= verificaDiferenca()>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Diferenca Cartão</mat-label>
+                <input matInput placeholder="Ex: R$ 10.0" name="diferencaCartao"
+                       formControlName="diferencaCartao"
+                       type="text" >
+            </mat-form-field>
+        </div>
+
+    </form>
+
+    <button mat-raised-button [disabled]="!caixa.valid" (click)="fecharCaixa()" color="primary">
+        Fechar Caixa
+    </button>
+
+    <button mat-raised-button (click)="cancelar()">
+        Cancelar
+    </button>
+
+    <button mat-raised-button routerLink="/relatorio-caixa-fechamento">
+        Relatorio Fechamento
+    </button>
+
+
+
+</mat-card>

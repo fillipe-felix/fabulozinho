@@ -1,0 +1,79 @@
+<mat-sidenav-container class="container">
+    <mat-sidenav class="sidevav" mode="side" opened fixedInViewport="true" fixedTopGap="64">
+        <mat-nav-list class="nav-list">
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">
+                    home
+                </i>
+                Início
+            </a>
+            <a mat-list-item routerLink="/categorias">
+                <i class="material-icons">
+                    category
+                </i>
+                Categorias
+            </a>
+
+            <a mat-list-item routerLink="/produtos">
+                <i class="material-icons">
+                    storefront
+                </i>
+                Produtos
+            </a>
+
+            <a mat-list-item routerLink="/modosPagamentos">
+                <i class="material-icons">
+                    payment
+                </i>
+                Modos de Pagamento
+            </a>
+
+            <mat-list-item (click)="showSubmenuCaixa = !showSubmenuCaixa" class="parent">
+                <span class="full-width1" *ngIf="isExpanded || isShowing">Caixa</span>
+                <mat-icon mat-list-icon>markunread_mailbox</mat-icon>
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuCaixa}"
+                          *ngIf="isExpanded || isShowing">
+                    expand_more
+                </mat-icon>
+            </mat-list-item>
+            <div class="submenu1" [ngClass]="{'expanded' : showSubmenuCaixa}" *ngIf="isShowing || isExpanded">
+                <a mat-list-item routerLink="/abre-caixa">
+                    <i class="material-icons">lock_open
+                    </i>
+                    Abrir Cx.
+                </a>
+                <a mat-list-item routerLink="/fecha-caixa">
+                    <i class="material-icons">
+                        lock
+                    </i>
+                    Fechar Cx.
+                </a>
+            </div>
+
+            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+                <span class="full-width" *ngIf="isExpanded || isShowing">Vendas</span>
+                <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
+                    expand_more
+                </mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <a mat-list-item routerLink="/venda">
+                    <i class="material-icons">attach_money
+                    </i>
+                    Venda
+                </a>
+                <a mat-list-item routerLink="/relatorio-venda">
+                    <i class="material-icons">
+                        insert_drive_file
+                    </i>
+                    Relatorio
+                </a>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+        <router-outlet>
+        </router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,19 @@
+.full-width-table {
+    width: 100%;
+}
+
+.edit {
+    margin-right: 10px;
+}
+
+.edit > mat-icon {
+    color: white;
+}
+
+.delete > mat-icon {
+    color: red;
+}
+
+.colunaAcoes{
+    width: 10%;
+}

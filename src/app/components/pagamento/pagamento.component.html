@@ -1,0 +1,99 @@
+<h2 style="text-align:center">Fechamento venda</h2>
+<form [formGroup]="pagamento"(ngSubmit)="onSubmit()">
+    <mat-card class="demo-dialog-card">
+        <mat-card-content>
+            <div style="display:flex ;flex-direction: row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Modo de pagamento</mat-label>
+                    <mat-select placeholder="Modos Pagmentos"formControlName="modoPagamento">
+                        <mat-option *ngFor="let modoPagamento of modosPagamentos" [value]="modoPagamento"  (click)="selectModoPgto(modoPagamento)">
+                            {{modoPagamento.descricao}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>Preencha o campo modo de pagamento
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 20px">
+                    <mat-label>SubTotal</mat-label>
+
+                    <input matInput placeholder="R$ 10.00"
+                           value="{{venda.subTotal | currency:'R$'}}" formControlName="subTotal">
+                </mat-form-field>
+
+            </div>
+            <div style="display:flex ;flex-direction: row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Desconto %</mat-label>
+                    <input matInput placeholder="Ex: 10 %" value="% 0.02" name="porcentagemDesconto" mask = "percent" suffix="%" separatorLimit = " 100 "  formControlName="porcentagemDesconto" (keydown.Tab)= recalculaTotal()>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="padding-left: 20px">
+                    <mat-label>Total</mat-label>
+                    <input matInput placeholder="R$ 10.00" prefix="R$ " mask="separator.2" thousandSeparator="." value="{{venda.valorTotal | currency:'R$'}}"formControlName="total">
+                </mat-form-field>
+            </div>
+            <div style="display:flex ;flex-direction: row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor Pagamento</mat-label>
+                    <input matInput placeholder="R$ 10.00"  name="valorPagamento" formControlName="valorPagamento"prefix="R$ " mask="separator.2" thousandSeparator="."  (keydown.Tab)= verificaTroco()>
+                    <mat-error
+                            *ngIf="pagamento.touched || pagamento.dirty && c.valorPagamento.errors?.required">Preencha o campo Valor Pagamento
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 20px">
+                    <mat-label>Restante</mat-label>
+                    <input matInput placeholder="Width" value= "{{restante| currency:'R$'}}" formControlName="restante" prefix="R$" >
+                </mat-form-field>
+            </div>
+            <div style="display:flex ;flex-direction: row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Quantidade parcela</mat-label>
+                    <input matInput value="1" type="number" name="quantidadeParcela" formControlName="quantidadeParcela">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 20px">
+                    <mat-label>Troco</mat-label>
+                    <input matInput placeholder="Width" name="troco" formControlName="troco"  prefix="R$ " mask="separator.2" thousandSeparator="."  value= "{{troco| currency:'R$'}}">
+                </mat-form-field>
+            </div>
+            <div class="example-button-container" style="display: flex; justify-content: flex-end">
+
+                <button class = "btnFinalizar" mat-button color="green"(click)="finalizaVenda()">Finalizar Venda</button>
+
+                <button style=" justify-content: flex-end;" mat-flat-button color="primary" (click)="addPagamento()">Add
+                    Pagamento
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 500px">
+    <ng-container matColumnDef="modoPagamento">
+        <th mat-header-cell *matHeaderCellDef>Modo pagamento</th>
+        <td mat-cell *matCellDef="let pagamento"> {{pagamento.modoPagamento.descricao}} </td>
+    </ng-container>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="quantidadeParcela">
+        <th mat-header-cell *matHeaderCellDef> Qntd Parcela</th>
+        <td mat-cell *matCellDef="let pagamento"> {{pagamento.quantidadeParcela}} </td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="valorPagamento">
+        <th mat-header-cell *matHeaderCellDef> Valor pgto</th>
+        <td mat-cell *matCellDef="let pagamento"> {{pagamento.valorPagamento |currency:'R$'}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<div class="example-button-container"  style="display: flex; justify-content: flex-end">
+    <button mat-icon-button color="accent" (click)="onNoClick()">
+        <mat-icon>check_circle</mat-icon>
+    </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-icon-button color="accent" (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>&nbsp;&nbsp;
+</div>
+
+</form>
+
+

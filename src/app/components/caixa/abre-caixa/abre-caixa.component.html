@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-card-title>Abre Caixa</mat-card-title>
+    <form [formGroup]="caixa">
+        <mat-form-field appearance="outline">
+            <mat-label>Nome Usuario Caixa</mat-label>
+            <input matInput type="text" placeholder="Ex: Maria F." name="nome" formControlName="nome">
+            <mat-error
+                    *ngIf="caixa.touched || caixa.dirty && c.nome.errors?.required">Preencha o campo
+                Nome Usuario Caixa
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Valor Inical</mat-label>
+            <input matInput prefix="R$ " mask="separator.2" thousandSeparator="." placeholder="Ex: R$ 10.0" name="valorAbertura"
+                   formControlName="valorAbertura"
+                   type="text" min="0">
+            <mat-error
+                    *ngIf="caixa.touched || caixa.dirty && c.valorAbertura.errors?.required">Preencha o campo
+               Valor Inicial
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+
+    <button mat-raised-button [disabled]="!caixa.valid" (click)="criarCaixa()" color="primary">
+        Salvar
+    </button>
+
+    <button mat-raised-button (click)="cancelar()">
+        Cancelar
+    </button>
+</mat-card>

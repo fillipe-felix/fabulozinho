@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-title>Nova Comanda</mat-card-title>
+    <form [formGroup]="venda">
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="Ex: Claudio" name="nomeComanda" formControlName="nomeComanda">
+            <mat-error
+                    *ngIf="venda.touched || venda.dirty && c.nomeComanda.errors?.required">Preencha o campo
+                nome
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+    <button mat-raised-button [disabled]="!venda.valid" (click)="criarVenda()" color="primary">
+        Criar comanda
+    </button>
+
+    <button mat-raised-button (click)="cancelar()">
+        Cancelar
+    </button>
+</mat-card>

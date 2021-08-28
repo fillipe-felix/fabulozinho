@@ -1,0 +1,64 @@
+<div class="mat-elevation-z8">
+    <table mat-table class="full-width-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+            <td mat-cell *matCellDef="let modoPagamento">{{modoPagamento.id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</th>
+            <td mat-cell *matCellDef="let modoPagamento">{{modoPagamento.descricao}}</td>
+        </ng-container>
+
+        <!-- Taxa Column -->
+<!--        <ng-container matColumnDef="taxa">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Taxa %</th>-->
+<!--            <td mat-cell *matCellDef="let modoPagamento">{{modoPagamento.taxa}}</td>-->
+<!--        </ng-container>-->
+
+        <!-- Taxa Desconto -->
+        <ng-container matColumnDef="porcentagemDesconto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Taxa desconto% </th>
+            <td  mat-cell *matCellDef="let modoPagamento">{{modoPagamento.porcentagemDesconto}} </td>
+        </ng-container>
+
+        <!-- troco -->
+<!--        <ng-container matColumnDef="troco">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Troco</th>-->
+<!--            <td mat-cell *matCellDef="let modoPagamento">-->
+<!--                <mat-checkbox [ngModel]="modoPagamento.troco" [disabled]="true"></mat-checkbox>-->
+<!--            </td>-->
+<!--        </ng-container>-->
+
+        <!-- a vista -->
+        <ng-container matColumnDef="aVista">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>A vista</th>
+            <td mat-cell *matCellDef="let modoPagamento">
+                <mat-checkbox [ngModel]="modoPagamento.aVista" [disabled]="true" ></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ações</th>
+            <td mat-cell *matCellDef="let modoPagamento">
+                <button mat-icon-button routerLink="/modoPagamento/update/{{modoPagamento.id}}" class="edit">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let modoPagamento; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator
+                   [length]="dataSource?.data.length"
+                   [pageIndex]="0"
+                   [pageSize]="5"
+                   [pageSizeOptions]="[5, 25, 50]">
+    </mat-paginator>
+</div>

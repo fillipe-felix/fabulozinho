@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-title>Nova Categoria</mat-card-title>
+    <form [formGroup]="categoria">
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text"  placeholder="Ex: Refrigerante" name="nome" formControlName="nome">
+            <mat-error
+                    *ngIf="categoria.touched || categoria.dirty && c.nome.errors?.required">Preencha o campo
+                nome
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+    <button mat-raised-button [disabled]="!categoria.valid" (click)="criarCategoria()" color="primary">
+        Salvar
+    </button>
+
+    <button mat-raised-button (click)="cancelar()">
+        Cancelar
+    </button>
+</mat-card>

@@ -1,0 +1,52 @@
+<mat-card>
+    <div style="display:flex ; align-items: flex-end; justify-content: flex-end">
+        <h1>ID VENDA : {{id}} </h1>
+    </div>
+    <div style="display:flex ; align-items: flex-end; justify-content: flex-end">
+        <h1>TOTAL  {{total  | currency:'R$'}} </h1>
+    </div>
+    <form class="example-form">
+        <mat-form-field class="example-full-width" style="position: relative;bottom: 90px">
+            <mat-label>Selecione o Produto</mat-label>
+            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let produto of filteredOptions | async" [value]="produto">
+                    <div (click)="optionClicked($event, produto)">
+                        <mat-checkbox [checked]="produto.selected" (change)="toggleSelection(produto)"
+                                      (click)="$event.stopPropagation()">
+                            {{ produto.nome }}
+                        </mat-checkbox>
+                    </div>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</mat-card>
+<div style="padding-bottom: 20px"></div>
+<mat-card>
+
+    <mat-list>
+        <mat-list-item *ngIf="itensVenda?.length === 0"></mat-list-item>
+        <mat-list-item *ngFor="let itemVenda of itensVenda">
+            <mat-list-item> {{ itemVenda.produtoNome }}</mat-list-item>
+            <mat-list-item> {{itemVenda.produtoPreco  | currency:'R$'}}</mat-list-item>
+            <input style="width:50px; height:25px;" class='form-control' type='number' min="1" name="cpf"
+                   [(ngModel)]="itemVenda.quantidade" (change)="toggleSelectionItemVenda(itemVenda)">
+            <mat-list-item>{{itemVenda.subTotal  | currency:'R$'}}</mat-list-item>
+            <button mat-raised-button (click)="deleteItemVenda(itemVenda)" color="primary">
+                X
+            </button>
+        </mat-list-item>
+    </mat-list>
+    <div style="padding-bottom: 50px"></div>
+
+    <div class="example-button-container"  style="display: flex; justify-content: flex-end">
+        <button mat-icon-button color="accent" (click)="salvarItensVenda()">
+            <mat-icon>save</mat-icon>
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-icon-button color="warn" (click)="realizarPagamento()">
+            <mat-icon>payment</mat-icon>
+        </button>
+    </div>
+</mat-card>
+
